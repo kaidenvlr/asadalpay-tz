@@ -33,3 +33,11 @@ async def create_order(payload: OrderSchema, db_session: AsyncSession = Depends(
 
     order.order_items = order_item_models
     return order
+
+
+@router.patch("/{order_id}", status_code=status.HTTP_202_ACCEPTED, response_model=OrderResponse)
+async def change_status(order_id: int, db_session: AsyncSession = Depends(get_db)):
+    order = await Order.get(order_id=order_id, db_session=db_session)
+    order.status = True
+    await db_session.commit()
+    return order

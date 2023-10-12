@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, ForeignKey, select
+from sqlalchemy import Integer, String, ForeignKey, select, Boolean
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -9,6 +9,7 @@ from app.models.base import Base
 class Order(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     telegram_id: Mapped[str] = mapped_column(String)
+    status: bool = mapped_column(Boolean, default=False)
 
     order_items = relationship("OrderItem", back_populates="order")
 
