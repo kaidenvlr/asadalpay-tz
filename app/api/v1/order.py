@@ -22,7 +22,7 @@ async def create_order(payload: OrderSchema, db_session: AsyncSession = Depends(
     order_items = payload.order_items
     telegram_id = payload.telegram_id
 
-    order = Order(telegram_id=telegram_id)
+    order = Order(telegram_id=telegram_id, status=False)
     try:
         db_session.add(order)
         await db_session.commit()

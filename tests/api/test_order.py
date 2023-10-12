@@ -7,7 +7,7 @@ async def test_add_order(client: AsyncClient):
     payload = {"title": "Example_add_order", "price": 123.99}
     add_item_response = await client.post("/item", json=payload)
     add_item_id = add_item_response.json()["id"]
-    payload = {"telegram_id": "123123123", "order_items": [{"item_id": add_item_id, "quantity": 100}], "status": False}
+    payload = {"telegram_id": "123123123", "order_items": [{"item_id": add_item_id, "quantity": 100}]}
     response = await client.post("/order", json=payload)
 
     assert response.status_code == 201
@@ -19,7 +19,7 @@ async def test_get_order(client: AsyncClient):
     payload = {"title": "Example_get_order", "price": 123.99}
     add_item_response = await client.post("/item", json=payload)
     add_item_id = add_item_response.json()["id"]
-    payload = {"telegram_id": "12344321", "order_items": [{"item_id": add_item_id, "quantity": 100}], "status": False}
+    payload = {"telegram_id": "12344321", "order_items": [{"item_id": add_item_id, "quantity": 100}]}
     response = await client.post("/order", json=payload)
 
     order_id = response.json()["id"]
