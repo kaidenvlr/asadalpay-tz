@@ -36,7 +36,7 @@ async def test_change_status_order(client: AsyncClient):
     add_item_response = await client.post("/item", json=payload)
     add_item_id = add_item_response.json()["id"]
 
-    payload = {"telegram_id": "123123123", "order_items": [{"item_id": add_item_id, "quantity": 100}], "status": False}
+    payload = {"telegram_id": "1234321", "order_items": [{"item_id": add_item_id, "quantity": 100}], "status": False}
     response = await client.post("/order", json=payload)
     order_id = response.json()["id"]
 
