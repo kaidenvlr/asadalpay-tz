@@ -25,3 +25,10 @@ class Item(Base):
             raise NotFoundException(msg="Item not Found")
         else:
             return instance
+
+    @classmethod
+    async def get_all(cls, db_session: AsyncSession):
+        stmt = select(cls)
+        result = await db_session.execute(stmt)
+        instance = result.scalars().all()
+        return instance
