@@ -28,6 +28,7 @@ FROM install as app-image
 
 ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
 
+COPY tests/ tests/
 COPY app/ app/
 COPY alembic/ alembic/
 COPY .env alembic.ini ./

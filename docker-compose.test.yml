@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  app:
+    environment:
+      - PG_DB=testdb
+
+  db:
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - PG_DB=testdb

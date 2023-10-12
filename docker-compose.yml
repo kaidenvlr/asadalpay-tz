@@ -2,13 +2,14 @@ version: '3.9'
 
 services:
   app:
-    container_name: fastapi
+    container_name: asadal_pay_tz_app
     build: .
     env_file:
       - .env
     command: bash -c "
       uvicorn app.main:app
       --host 0.0.0.0 --port 8000
+      --use-colors
       --reload --log-level debug
       "
     volumes:
@@ -18,7 +19,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: db
+    container_name: asadal_pay_tz_db
     build:
       context: ./db
       dockerfile: Dockerfile
