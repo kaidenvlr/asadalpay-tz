@@ -16,3 +16,9 @@ class OrderResponse(BaseModel):
     id: int = Field(title="", description="")
     url: str = Field(title="", description="")
     full_value: float = Field(title="", description="")
+
+
+class OrderNativeResponse(BaseModel):
+    id: int = Field(title="", description="")
+    telegram_id: str = Field(title="", description="")
+    status: bool = Field(title="", description="")

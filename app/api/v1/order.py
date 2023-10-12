@@ -1,5 +1,3 @@
-from urllib.request import Request
-
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -7,13 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.exceptions import NonProcessableEntityException, BadRequestException
 from app.models.order import Order, OrderItem
-from app.schemas.order import OrderSchema, OrderResponse
+from app.schemas.order import OrderSchema, OrderResponse, OrderNativeResponse
 from app.utils import pay_order
 
 router = APIRouter(prefix="/order")
 
 
-@router.get("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderResponse)
+@router.get("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderNativeResponse)
 async def get_order(order_id: int, db_session: AsyncSession = Depends(get_db)):
     order = await Order.get(order_id=order_id, db_session=db_session)
     return order
@@ -30,8 +28,6 @@ async def create_order(payload: OrderSchema, db_session: AsyncSession = Depends(
         await db_session.commit()
     except SQLAlchemyError as ex:
         raise NonProcessableEntityException(msg=repr(ex))
-    print(order.id)
-    # await asyncio.sleep(2)
 
     for order_item in order_items:
         # full_value += order_item.quantity * (await Item.get(db_session=db_session, item_id=order_item.item_id)).price
@@ -57,7 +53,7 @@ async def create_order(payload: OrderSchema, db_session: AsyncSession = Depends(
         raise BadRequestException(msg="Bad Input Values")
 
 
-@router.patch("/{order_id}", status_code=status.HTTP_202_ACCEPTED, response_model=OrderResponse)
+@router.patch("/{order_id}", status_code=status.HTTP_202_ACCEPTED, response_model=OrderNativeResponse)
 async def change_status(order_id: int, db_session: AsyncSession = Depends(get_db)):
     order = await Order.get(order_id=order_id, db_session=db_session)
     order.status = True

@@ -36,7 +36,7 @@ async def create_item(payload: ItemSchema, db_session: AsyncSession = Depends(ge
 async def update_item(item_id: int, payload: ItemSchema, db_session: AsyncSession = Depends(get_db)):
     item = await Item.get(item_id=item_id, db_session=db_session)
     try:
-        for k, v in payload.items():
+        for k, v in payload.model_dump().items():
             setattr(item, k, v)
         await db_session.commit()
     except SQLAlchemyError as ex:
@@ -44,12 +44,12 @@ async def update_item(item_id: int, payload: ItemSchema, db_session: AsyncSessio
     return item
 
 
-@router.delete("/{item_id}", response_model=ItemResponse)
+@router.delete("/{item_id}")
 async def delete_item(item_id: int, db_session: AsyncSession = Depends(get_db)):
     item = await Item.get(item_id=item_id, db_session=db_session)
     try:
         await db_session.delete(item)
         await db_session.commit()
-        return True
+        return
     except SQLAlchemyError as ex:
         raise NonProcessableEntityException(msg=repr(ex))
