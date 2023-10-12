@@ -14,6 +14,5 @@ class OrderSchema(BaseModel):
 
 class OrderResponse(BaseModel):
     id: int = Field(title="", description="")
-    telegram_id: str = Field(title="", description="")
-    order_items: list[OrderItemSchema] = Field(title="", description="")
-    status: bool = Field(title="", description="")
+    url: str = Field(title="", description="")
+    full_value: float = Field(title="", description="")
