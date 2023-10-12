@@ -31,7 +31,3 @@ ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
 COPY app/ app/
 COPY alembic/ alembic/
 COPY .env alembic.ini ./
-
-RUN addgroup --system --gid 1001 "app-user"
-RUN adduser --system --uid 1001 "app-user"
-USER "app-user"
