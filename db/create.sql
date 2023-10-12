@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS devdb;
+CREATE DATABASE devdb;
+\connect devdb;
+CREATE SCHEMA app;
+
+DROP DATABASE IF EXISTS testdb;
+CREATE DATABASE testdb;
+\connect testdb;
+CREATE SCHEMA app;

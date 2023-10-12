@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: fastapi
+    build: .
+    env_file:
+      - .env
+    command: bash -c "
+      uvicorn app.main:app
+      --host 0.0.0.0 --port 8000
+      --reload --log-level debug
+      "
+    volumes:
+      - .:/home/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    container_name: db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - fastapi_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${PG_USER}
+    healthcheck:
+      test: [
+              "CMD-SHELL", "pg_isready -d $PG_DB -U $PG_USER"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  fastapi_postgres_data: {}
