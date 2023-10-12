@@ -28,7 +28,7 @@ async def update_item(item_id: int, payload: ItemSchema, db_session: AsyncSessio
     return item
 
 
-@router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT, response_model=ItemResponse)
+@router.delete("/{item_id}", response_model=ItemResponse)
 async def delete_item(item_id: int, db_session: AsyncSession = Depends(get_db)):
     item = await Item.get(item_id=item_id, db_session=db_session)
     return await item.delete(db_session=db_session)
