@@ -22,9 +22,12 @@ async def show_items(message: Message, state: FSMContext):
         <b>Цена</b>: {item["price"]}
         --------------------------------
         """)
-    text += dedent(f"""\
-    <b>ID</b>: {items[-1]["id"]}
-    <b>Название</b>: {items[-1]["title"]}
-    <b>Цена</b>: {items[-1]["price"]}
-    """)
-    await message.answer(text=dedent(text), reply_markup=get_items_inline_keyboard(items))
+    try:
+        text += dedent(f"""\
+        <b>ID</b>: {items[-1]["id"]}
+        <b>Название</b>: {items[-1]["title"]}
+        <b>Цена</b>: {items[-1]["price"]}
+        """)
+        await message.answer(text=dedent(text), reply_markup=get_items_inline_keyboard(items))
+    except IndexError:
+        await message.answer(text="Товары еще не добавлены...")

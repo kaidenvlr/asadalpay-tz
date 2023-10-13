@@ -27,7 +27,7 @@ async def cmd_cart(message: Message, state: FSMContext):
         text += dedent(f"""\
         Товар: {title}
         Количество: {item["quantity"]}
-        ------------------------------
+        --------------------------------
         """)
     try:
         title = get_item_title(items[-1]["item_id"], items_definition)

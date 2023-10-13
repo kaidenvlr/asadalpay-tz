@@ -4,7 +4,7 @@ from app.config import settings
 
 
 def get_orders(telegram_id: str):
-    url = f"localhost:8000/api/v1/order/{telegram_id}"
+    url = f"http://localhost:8000/api/v1/order/all/{telegram_id}"
     response = requests.get(url)
     orders = response.json()
     return orders
