@@ -40,6 +40,8 @@ async def create_order(payload: OrderSchema, db_session: AsyncSession = Depends(
             raise NonProcessableEntityException(msg=repr(ex))
 
     result = (await pay_order(db_session=db_session, order_items=order_items, order=order))
+    order.uuid_asadal = result.json()["uuid"]
+    await db_session.commit()
     if result.status_code == 201:
         result = result.json()
         response = {

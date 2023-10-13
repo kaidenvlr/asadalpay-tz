@@ -26,6 +26,7 @@ class Order(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     telegram_id: Mapped[str] = mapped_column(String)
     status: Mapped[bool] = mapped_column(Boolean, default=False)
+    uuid_asadal: Mapped[str] = mapped_column(String, nullable=True)
 
     order_items = relationship("OrderItem", back_populates="order")
 
