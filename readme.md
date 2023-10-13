@@ -135,3 +135,25 @@ Documentation is available by these endpoints:
 | Parameter | Type     | Description                               |
 | :-------- | :------- | :--------------------------------         |
 | `order_id`| `int`    | **Required**. Id of order to change status|
+
+
+#### Check payment status
+
+```http
+  GET /api/v1/order/check-payment/${order_id}
+```
+
+| Parameter | Type     | Description                                      |
+| :-------- | :------- | :--------------------------------                |
+| `order_id`| `int`    | **Required**. Id of order to check payment status|
+
+
+#### Get orders by Telegram ID
+
+```http
+  GET /api/v1/order/all/${telegram_id}
+```
+
+| Parameter    | Type     | Description                               |
+| :--------    | :------- | :--------------------------------         |
+| `telegram_id`| `str`    | **Required**. Telegram ID to get orders   |
