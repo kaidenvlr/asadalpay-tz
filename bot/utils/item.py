@@ -6,3 +6,9 @@ def get_items():
     response = requests.get(url)
     items = response.json()
     return items
+
+
+def get_item_title(item_id, items):
+    for item in items:
+        if item["id"] == item_id:
+            return item["title"]

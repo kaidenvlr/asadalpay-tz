@@ -3,9 +3,12 @@ import asyncio
 from aiogram import Bot, Dispatcher
 
 from bot.commands.base import router as base_router
+from bot.commands.cart import router as cart_router
 from bot.commands.item import router as item_router
+from bot.handlers.order import router as order_handler_router
 from bot.commands.ui import set_ui_commands
 from bot.config import config
+from bot.handlers.item import router as item_handler_router
 
 
 async def main():
@@ -16,6 +19,9 @@ async def main():
 
     dp.include_router(router=base_router)
     dp.include_router(router=item_router)
+    dp.include_router(router=item_handler_router)
+    dp.include_router(router=order_handler_router)
+    dp.include_router(router=cart_router)
 
     await set_ui_commands(bot)
 

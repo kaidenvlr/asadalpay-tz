@@ -11,3 +11,4 @@ class StageFactory(CallbackData, prefix="stage"):
 
 class ItemChosenFactory(CallbackData, prefix="item_choose"):
     id: int
+    title: str

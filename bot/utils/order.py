@@ -11,14 +11,21 @@ def get_orders(telegram_id: str):
 
 
 def add_order(data: dict):
-    url = "localhost:8000/api/v1/order"
+    url = "http://localhost:8000/api/v1/order"
     response = requests.post(url, json=data)
     result = response.json()
     return result
 
 
-def check_status(order_id: str):
-    url = f"https://api-dev.asadalpay.com/api/orders/{order_id}"
-    response = requests.get(url, headers={"Api-Key": settings.ASADAL_TOKEN})
-    result = response.json()
+def check_payment(order_id: int):
+    url = f"http://localhost:8000/api/v1/order/check-payment/{order_id}"
+    response = requests.get(url)
+    result = response.json()["status"]
     return result
+
+
+def change_order_status(order_id: int):
+    url = f"http://localhost:8000/api/v1/order/{order_id}"
+    response = requests.patch(url)
+    return True
+
