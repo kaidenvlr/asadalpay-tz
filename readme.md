@@ -3,6 +3,8 @@
 
 Test work goal: create a frontend view for AsadalPay payment system.
 
+Telegram bot: https://t.me/asadal_pay_tz_bot
+
 ## Getting Started
 
 ### Make will help you
@@ -162,10 +164,3 @@ Documentation is available by these endpoints:
 | Parameter    | Type     | Description                               |
 | :--------    | :------- | :--------------------------------         |
 | `telegram_id`| `str`    | **Required**. Telegram ID to get orders   |
-
-
-
-
-
-
-
