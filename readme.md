@@ -13,10 +13,11 @@ To build, up, test, create and apply migration use:
 ```
 and you receive this
 ```bash
+bot                  Run bot
 build                Build project with compose
 help                 Show this help
 migrate-apply        apply alembic migrations to database/schema
-migrate-create       create new alembic migration
+migrate-create       Create new alembic database migration aka database revision.
 test                 Run project tests
 up                   Run project with compose
 ```
@@ -26,6 +27,10 @@ To build and up project use
 ```bash
 make build
 make up
+```
+In another terminal you should use
+```bash
+make bot
 ```
 
 ### Test API
@@ -157,3 +162,10 @@ Documentation is available by these endpoints:
 | Parameter    | Type     | Description                               |
 | :--------    | :------- | :--------------------------------         |
 | `telegram_id`| `str`    | **Required**. Telegram ID to get orders   |
+
+
+
+
+
+
+
