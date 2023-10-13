@@ -38,3 +38,10 @@ class Order(Base):
             raise NotFoundException(msg="Order not found")
         else:
             return instance
+
+    @classmethod
+    async def get_all(cls, telegram_id: str, db_session: AsyncSession):
+        stmt = select(cls).where(cls.telegram_id == telegram_id)
+        result = await db_session.execute(stmt)
+        instance = result.scalars().all()
+        return instance

@@ -60,8 +60,7 @@ async def change_status(order_id: int, db_session: AsyncSession = Depends(get_db
     await db_session.commit()
     return order
 
-# Если задеплою апи на хостинге, то можно будет проверять сразу же оплату, через ключ notify_url
-# @router.post("/payment_notify")
-# async def payment_notify(data):
-#     print(data)
-#     return "OK"
+
+@router.get("/{telegram_id}", status_code=status.HTTP_200_OK, response_model=list[OrderNativeResponse])
+async def get_orders(telegram_id: str, db_session: AsyncSession = Depends(get_db)):
+    return await Order.get_all(telegram_id=telegram_id, db_session=db_session)
