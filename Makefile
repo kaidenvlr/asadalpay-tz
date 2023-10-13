@@ -22,3 +22,7 @@ migrate-create:  ## Create new alembic database migration aka database revision.
 .PHONY: test
 test:	## Run project tests
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm app pytest
+
+.PHONY: bot
+bot:	## Run bot
+	python3 -m bot.main
