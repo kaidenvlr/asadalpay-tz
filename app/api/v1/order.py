@@ -5,8 +5,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.exceptions import NonProcessableEntityException, BadRequestException
 from app.models.order import Order, OrderItem
-from app.schemas.order import OrderSchema, OrderResponse, OrderNativeResponse
-from app.utils import pay_order
+from app.schemas.order import OrderSchema, OrderResponse, OrderNativeResponse, CheckPaymentResponse
+from app.utils import pay_order, check_payment
 
 router = APIRouter(prefix="/order")
 
@@ -63,6 +63,12 @@ async def change_status(order_id: int, db_session: AsyncSession = Depends(get_db
     return order
 
 
-@router.get("/{telegram_id}", status_code=status.HTTP_200_OK, response_model=list[OrderNativeResponse])
+@router.get("/all/{telegram_id}", status_code=status.HTTP_200_OK, response_model=list[OrderNativeResponse])
 async def get_orders(telegram_id: str, db_session: AsyncSession = Depends(get_db)):
     return await Order.get_all(telegram_id=telegram_id, db_session=db_session)
+
+
+@router.get('/check-payment/{order_id}', status_code=status.HTTP_200_OK, response_model=CheckPaymentResponse)
+async def get_check_payment(order_id: int, db_session: AsyncSession = Depends(get_db)):
+    uuid = (await Order.get(order_id=order_id, db_session=db_session)).uuid_asadal
+    return {"status": await check_payment(order_uuid=uuid)}

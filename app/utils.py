@@ -42,4 +42,4 @@ async def check_payment(order_uuid: str):
         headers={"Api-Key": token}
     )
     if result.status_code == 200:
-        return result
+        return True if result.json()['status'] == 'PAID' else False

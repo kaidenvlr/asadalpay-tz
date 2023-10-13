@@ -22,3 +22,7 @@ class OrderNativeResponse(BaseModel):
     telegram_id: str = Field(title="", description="")
     uuid_asadal: str = Field(title="", description="")
     status: bool = Field(title="", description="")
+
+
+class CheckPaymentResponse(BaseModel):
+    status: bool = Field(title="", description="")

@@ -46,3 +46,13 @@ class Order(Base):
         result = await db_session.execute(stmt)
         instance = result.scalars().all()
         return instance
+
+    @classmethod
+    async def get_by_uuid(cls, uuid: str, db_session: AsyncSession):
+        stmt = select(cls).where(cls.uuid_asadal == uuid)
+        result = await db_session.execute(stmt)
+        instance = result.scalars().first()
+        if instance is None:
+            raise NotFoundException(msg="Order not found")
+        else:
+            return instance
