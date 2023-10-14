@@ -7,10 +7,11 @@ from bot.factories import ItemChosenFactory
 def get_items_inline_keyboard(items) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     for item in items:
-        builder.button(
+        btn = InlineKeyboardButton(
             text=item["title"],
-            callback_data=ItemChosenFactory(id=item["id"], title=item["title"])
+            callback_data=ItemChosenFactory(id=item["id"], title=item["title"]).pack()
         )
+        builder.row(btn)
     return builder.as_markup()
 
 

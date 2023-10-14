@@ -25,7 +25,8 @@ async def cb_add_order(callback: CallbackQuery, state: FSMContext):
         reply_markup=check_payment_keyboard()
     )
     await state.set_state(CurrentState.check_payment)
-    await state.update_data(order_id=data["id"])
+    await state.update_data(order_id=data["id"], cart={"telegram_id": str(callback.from_user.id), "order_items": []},
+                            items=[])
 
 
 @router.callback_query(F.data == 'check-payment', CurrentState.check_payment)
