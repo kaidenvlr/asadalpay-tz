@@ -25,4 +25,4 @@ test:	## Run project tests
 
 .PHONY: bot
 bot:	## Run bot
-	python3 -m bot.main
+	poetry run python3 -m bot.main
