@@ -30,7 +30,7 @@ async def cb_item_chose(callback: CallbackQuery, callback_data: ItemChosenFactor
 
 @router.message(
     CurrentState.entering_quantity_item,
-    F.text.regexp(r"\d+")
+    F.text.regexp(r"^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])$")
 )
 async def enter_quantity_item(message: Message, state: FSMContext):
     quantity = int(message.text)
